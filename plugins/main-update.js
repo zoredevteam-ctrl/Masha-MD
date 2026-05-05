@@ -24,7 +24,7 @@ let handler = async (m, { conn }) => {
         const ctx = {
             externalAdReply: {
                 title: 'ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ - ɴᴇᴡ ᴜᴘᴅᴀᴛᴇ 🎀',
-                body: 'Z0RT SYSTEMS | Premium Edition',
+                body: 'ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ',
                 mediaType: 1,
                 previewType: 0,
                 renderLargerThumbnail: true, // ESTO HACE QUE EL ICONO SE VEA MÁS GRANDE
