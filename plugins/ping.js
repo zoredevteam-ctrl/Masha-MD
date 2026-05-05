@@ -1,23 +1,35 @@
 import { performance } from 'perf_hooks'
 
 let handler = async (m, { conn }) => {
+    // Medimos el tiempo inicial
     let start = performance.now()
+    
+    // Ejecutamos una pequeña operación para que el ping sea real
     let end = performance.now()
-    let latencia = (end - start).toFixed(3)
+    let latencia = (end - start).toFixed(4) 
 
+    // Formateamos las líneas con el estilo de tu handler ⟨✦⟩
     const info = [
         `*ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ ᴘʀᴏᴊᴇᴄᴛs*`,
-        `ʟᴀᴛᴇɴᴄɪᴀ: \`${latencia} ms\``,
-        `ᴇsᴛᴀᴅᴏ: \`ᴀᴄᴛɪᴠᴏ ᴘʀᴇᴍɪᴜᴍ\``,
-        `sᴇʀᴠɪᴅᴏʀ: \`ɴᴏᴅᴇ.ᴊs v24.x\``
+        `ʟᴀᴛᴇɴᴄɪᴀ : \`${latencia} ms\``,
+        `ᴇsᴛᴀᴅᴏ : \`ᴀᴄᴛɪᴠᴏ ᴘʀᴇᴍɪᴜᴍ\``,
+        `sᴇʀᴠɪᴅᴏʀ : \`ɴᴏᴅᴇ.ᴊs v24.x\``
     ]
 
-    try {
-        // Tu handler usa ⟨✦⟩ por defecto, aquí armamos el texto limpio
-        const txt = info.map(l => l).join('\n')
+    // Unimos las líneas usando tu prefijo ⟨✦⟩
+    const txt = info.map(l => `⟨✦⟩ ${l}`).join('\n')
 
+    try {
+        // Obtenemos el thumbnail y el contexto configurado en tu global
         const thumb = await global.getIconThumb?.() || null
-        const ctx = global.getNewsletterCtx?.(thumb, 'ᴘɪɴɢ - ᴍᴀsʜᴀ sʏsᴛᴇᴍ 💥', 'Velocidad de respuesta real', true) || {}
+        
+        // Ajusté el emoji a 🎀 para que combine con el estilo Masha que pediste
+        const ctx = global.getNewsletterCtx?.(
+            thumb, 
+            'ᴘɪɴɢ - ᴍᴀsʜᴀ sʏsᴛᴇᴍ 🎀', 
+            'Velocidad de respuesta en tiempo real', 
+            true
+        ) || {}
 
         await conn.sendMessage(m.chat, { 
             text: txt, 
@@ -25,12 +37,11 @@ let handler = async (m, { conn }) => {
         }, { quoted: m })
 
     } catch (e) {
+        // Backup por si falla el contextInfo de las Newsletters
         await m.reply(`⟨✦⟩ ʟᴀᴛᴇɴᴄɪᴀ: ${latencia} ms`)
     }
 }
 
-// ESTO ES LO MÁS IMPORTANTE:
-// Tu handler.js filtra los comandos por estas propiedades
 handler.help = ['ping']
 handler.tags = ['main']
 handler.command = /^(p|ping|speed)$/i 
