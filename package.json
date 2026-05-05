@@ -1,0 +1,30 @@
+{
+  "name": "masha-kujou-md",
+  "version": "1.0.0",
+  "description": "WhatsApp Bot Premium — Masha Kujou Edition | Z0RT SYSTEMS",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "qr":    "node index.js --qr",
+    "code":  "node index.js --code"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "^6.7.0",
+    "@hapi/boom":              "^10.0.1",
+    "pino":                    "^9.0.0",
+    "qrcode-terminal":         "^0.12.0",
+    "qrcode":                  "^1.5.3",
+    "chalk":                   "^5.3.0",
+    "readline-sync":           "^1.4.10",
+    "axios":                   "^1.6.0",
+    "cheerio":                 "^1.0.0-rc.12",
+    "fluent-ffmpeg":           "^2.1.2",
+    "jimp":                    "^1.6.0",
+    "file-type":               "^18.5.0",
+    "lowdb":                   "^3.0.0",
+    "node-cache":               "^5.1.2"
+  },
+  "author": "˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ — Z0RT SYSTEMS",
+  "license": "MIT"
+}
