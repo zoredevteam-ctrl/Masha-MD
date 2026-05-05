@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://media.tenor.com/tYtZ5u8C7fUAAAAC/masha-kujou-alya-sometimes-hides-her-feelings-en-tokidoki-masha-roshidere.gif" alt="Masha Kujou" width="500"/>
+  <img src="https://imgur.com/a/6vczIKU" alt="Masha Kujou" width="500"/>
 
   <h1>🎀 ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ ᴍᴅ 🎀</h1>
   <p><i>The Most Elegant & Powerful WhatsApp Bot Experience</i></p>
@@ -43,7 +43,7 @@ Selecciona tu método preferido al iniciar el proceso:
 | node index.js | 🪄 **Menú Interactivo** (Recomendado) |
 | node index.js --qr | 📲 **Escanear Código QR** |
 | node index.js --code | 🔢 **Vincular con Código de 8 Dígitos** |
-## 💎 ᴄᴀʀᴀᴄᴛᴇʀɪsᴛɪᴄᴀs ᴘʀᴇᴍɪᴜᴍ
+## 💫 ᴄᴀʀᴀᴄᴛᴇʀɪsᴛɪᴄᴀs 
  * ◈ **Sistema de Plugins:** Estructura modular dinámica.
  * ◈ **Seguridad:** Protección avanzada Antilink, Antibot y Moderación.
  * ◈ **Economía:** Sistema de moneda (Money/Bank/Level) integrado.
