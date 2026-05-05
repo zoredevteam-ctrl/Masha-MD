@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://imgur.com/a/4SatkNG" alt="Masha Kujou MD" width="100%"/>
+  <img src="https://causas-files.vercel.app/fl/hkna.webp" alt="Masha Kujou MD" width="100%"/>
 
   <h1>✦ Masha Kujou MD</h1>
   <p><i>WhatsApp Bot Premium — Z0RT SYSTEMS</i></p>
