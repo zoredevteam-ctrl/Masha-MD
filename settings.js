@@ -31,7 +31,7 @@ global.newsletterJid  = '120363408182996815@newsletter'
 global.newsletterName = '「✦ 𝐌𝐚𝐬𝐡𝐚 𝐊𝐮𝐣𝐨𝐮 ✦」'
 
 global.banner = 'https://causas-files.vercel.app/fl/hc2x.webp'
-global.icono  = 'https://i.imgur.com/placeholder-icon.jpg'
+global.icono  = 'https://causas-files.vercel.app/fl/8y10.jpg'
 
 // ══════════════════════════════════════════
 //   ✦  H E L P E R S  D E  I M A G E N
