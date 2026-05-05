@@ -34,22 +34,22 @@ ${greeting}, *${name || m.pushName}* 🎀
   • ${usedPrefix}update
   • ${usedPrefix}owner
 
-  *💰 ᴇᴄᴏɴᴏᴍʏ*
+  *🪄 ᴇᴄᴏɴᴏᴍʏ*
   • ${usedPrefix}balance
   • ${usedPrefix}claim
   • ${usedPrefix}work
 
-  *🎵 ᴅᴏᴡɴʟᴏᴀᴅs*
+  *🎀 ᴅᴏᴡɴʟᴏᴀᴅs*
   • ${usedPrefix}play
   • ${usedPrefix}tiktok
   • ${usedPrefix}ig
 
-  *🎨 ᴀɴɪᴍᴇ*
+  *🪄 ᴀɴɪᴍᴇ*
   • ${usedPrefix}waifu
   • ${usedPrefix}neko
   • ${usedPrefix}masha
 
-  *🛡️ ɢʀᴏᴜᴘs*
+  *🎀 ɢʀᴏᴜᴘs*
   • ${usedPrefix}kick
   • ${usedPrefix}add
   • ${usedPrefix}promote
