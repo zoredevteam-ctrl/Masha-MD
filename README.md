@@ -1,106 +1,81 @@
 <div align="center">
-  <img src="https://causas-files.vercel.app/fl/hkna.webp" alt="Masha Kujou MD" width="100%"/>
+  <img src="https://media.tenor.com/tYtZ5u8C7fUAAAAC/masha-kujou-alya-sometimes-hides-her-feelings-en-tokidoki-masha-roshidere.gif" alt="Masha Kujou" width="500"/>
 
-  <h1>✦ Masha Kujou MD</h1>
-  <p><i>WhatsApp Bot Premium — Z0RT SYSTEMS</i></p>
+  <h1>🎀 ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ ᴍᴅ 🎀</h1>
+  <p><i>The Most Elegant & Powerful WhatsApp Bot Experience</i></p>
 
-  ![Version](https://img.shields.io/badge/version-1.0.0-blueviolet?style=flat-square)
-  ![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?style=flat-square)
-  ![License](https://img.shields.io/badge/license-MIT-purple?style=flat-square)
-  ![Status](https://img.shields.io/badge/status-active-violet?style=flat-square)
+  <p align="center">
+    <img src="https://img.shields.io/badge/Version-1.0.0-FFD700?style=for-the-badge&logo=github&logoColor=white" />
+    <img src="https://img.shields.io/badge/Node.js-v24-FF4D4D?style=for-the-badge&logo=node.js&logoColor=white" />
+    <img src="https://img.shields.io/badge/Z0RT-SYSTEMS-8E44AD?style=for-the-badge" />
+  </p>
+
+  <p align="center">
+    <b>⟨✦⟩ Dᴇᴠᴇʟᴏᴘᴇᴅ ʙʏ <a href="https://github.com/Zoredevteam-ctrl">˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ</a></b>
+  </p>
 </div>
 
 ---
 
-## ✿ Requisitos
-
-- Node.js `v18+`
-- Git
-- FFmpeg (para comandos de audio/video)
+## 👑 ɪɴғᴏʀᴍᴀᴄɪᴏɴ ɢᴇɴᴇʀᴀʟ
+**Masha Kujou MD** es un bot de alto rendimiento basado en **Baileys**, diseñado para la gestión de grupos, economía avanzada y entretenimiento multimedia. Cuenta con una estética inspirada en el aura refinada de Masha, combinando colores oro, carmesí y lila.
 
 ---
 
-## ✿ Instalación
+## 🪄 ɪɴsᴛᴀʟᴀᴄɪᴏɴ (ᴛᴇʀᴍᴜx/ᴠᴘs)
 
 ```bash
-git clone https://github.com/Zoredevteam-ctrl/masha-kujou-md
+# Clonar repositorio
+git clone [https://github.com/Zoredevteam-ctrl/masha-kujou-md](https://github.com/Zoredevteam-ctrl/masha-kujou-md)
 cd masha-kujou-md
+
+# Instalar dependencias
 npm install
+
+# Iniciar bot
+npm start
+
 ```
-
----
-
-## ✿ Iniciar
-
-```bash
-# Menú interactivo
-node index.js
-
-# Con código QR
-node index.js --qr
-
-# Con código de 8 dígitos
-node index.js --code
-```
-
----
-
-## ✿ Características
-
-| Feature | Estado |
+## 🎀 ᴍᴇᴛᴏᴅᴏs ᴅᴇ ᴠɪɴᴄᴜʟᴀᴄɪᴏɴ
+Selecciona tu método preferido al iniciar el proceso:
+| Comando | Acción |
 |---|---|
-| 🤖 Multi-plugin | ✅ |
-| 🛡️ Antibot & Antilink | ✅ |
-| 👤 Sistema de perfiles | ✅ |
-| 💰 Economía completa | ✅ |
-| 🎭 Reacciones anime | ✅ |
-| 💞 Sistema social | ✅ |
-| 🎮 Juegos y trivia | ✅ |
-| 🎵 Descargas multimedia | ✅ |
-| 🤖 Sub-Bot system | ✅ |
-| ❄︎ Waifu claim system | ✅ |
-| 🔄 Auto-reconexión | ✅ |
-
----
-
-## ✿ Estructura
-
-```
-masha-kujou-md/
-├── index.js
-├── handler.js
-├── settings.js
-├── package.json
-├── plugins/
-├── events/
-├── lib/
-│   ├── database.js
-│   ├── simple.js
-│   └── print.js
-└── Sessions/
-```
-
----
-
-## ✿ Configuración
-
-```js
-global.botName        = 'Masha Kujou'
-global.prefix         = '#'
-global.banner         = 'url_del_banner'
-global.icono          = 'url_del_icono'
-global.rcanal         = 'url_del_canal'
-global.newsletterJid  = 'jid_del_canal'
-global.newsletterName = 'nombre_del_canal'
-global.owner = [
-  ['tunumero', 'tu nombre', true]
+| node index.js | 🪄 **Menú Interactivo** (Recomendado) |
+| node index.js --qr | 📲 **Escanear Código QR** |
+| node index.js --code | 🔢 **Vincular con Código de 8 Dígitos** |
+## 💎 ᴄᴀʀᴀᴄᴛᴇʀɪsᴛɪᴄᴀs ᴘʀᴇᴍɪᴜᴍ
+ * ◈ **Sistema de Plugins:** Estructura modular dinámica.
+ * ◈ **Seguridad:** Protección avanzada Antilink, Antibot y Moderación.
+ * ◈ **Economía:** Sistema de moneda (Money/Bank/Level) integrado.
+ * ◈ **Multimedia:** Descargador de TikTok, YouTube, Instagram y Pinterest.
+ * ◈ **Personalización:** Soporte para Newsletter JID y Context Info elegante.
+ * ◈ **Estabilidad:** Auto-limpieza de sesiones corruptas (Bad MAC fix).
+## ⚙️ ᴄᴏɴғɪɢᴜʀᴀᴄɪᴏɴ (settings.js)
+Edita los valores globales para personalizar tu instancia:
+```javascript
+global.botName = 'Masha Kujou'
+global.prefix  = '#'
+global.owner   = [
+  ['573XXXXXXXX', 'Adrien', true] // Número, Nombre, Root Owner
 ]
+global.newsletterJid  = '123456789@newsletter'
+global.newsletterName = 'Masha Updates'
+
 ```
+## 📁 ᴇsᴛʀᴜᴄᴛᴜʀᴀ ᴅᴇʟ ᴘʀᴏʏᴇᴄᴛᴏ
+```text
+masha-kujou-md/
+├── 📂 plugins/      # Comandos y módulos
+├── 📂 events/       # Eventos del socket
+├── 📂 lib/          # Funciones núcleo (DB, Print, Utils)
+├── 📂 Sessions/     # Datos de autenticación
+├── 📄 index.js      # Punto de entrada
+└── 📄 handler.js    # Lógica de mensajes
 
----
-
+```
 <div align="center">
-  <p>
-    <b>⟨✦⟩ Desarrollado por <a href="https://github.com/Zoredevteam-ctrl">˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ</a> — Z0RT SYSTEMS</b>
-  </p>
+<p>
+<b>© 2026 Z0RT SYSTEMS — Pᴏᴡᴇʀᴇᴅ ʙʏ XLR4-Sᴇᴄᴜʀɪᴛʏ</b>
+</p>
+<img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%"/>
 </div>
