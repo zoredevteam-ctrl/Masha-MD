@@ -26,7 +26,7 @@ global.prefix = '#'
 //   ✦  E N L A C E S
 // ══════════════════════════════════════════
 
-global.rcanal         = 'https://whatsapp.com/channel/0029Vb7oFViGOj9szHDluQ1B'
+global.rcanal         = 'https://whatsapp.com/channel/0029Vb6p68rF6smrH4Jeay3Y'
 global.newsletterJid  = '120363404822730259@newsletter'
 global.newsletterName = '「✦ 𝐌𝐚𝐬𝐡𝐚 𝐊𝐮𝐣𝐨𝐮 ✦」'
 
