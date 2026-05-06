@@ -27,7 +27,7 @@ global.prefix = '#'
 // ══════════════════════════════════════════
 
 global.rcanal         = 'https://whatsapp.com/channel/0029Vb7oFViGOj9szHDluQ1B'
-global.newsletterJid  = '120363407858718331@newsletter'
+global.newsletterJid  = '120363404822730259@newsletter'
 global.newsletterName = '「✦ 𝐌𝐚𝐬𝐡𝐚 𝐊𝐮𝐣𝐨𝐮 ✦」'
 
 global.banner = 'https://causas-files.vercel.app/fl/hc2x.webp'
