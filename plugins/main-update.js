@@ -1,50 +1,62 @@
-import { performance } from 'perf_hooks'
+import { exec } from 'child_process'
+import { promisify } from 'util'
 
-let handler = async (m, { conn }) => {
-    // Definimos los cambios de la versión
-    const updates = [
-        `*ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ ᴜᴘᴅᴀᴛᴇs*`,
-        `ᴠᴇʀsɪᴏɴ: \`v${global.botVersion || '1.0.0'}\``,
-        `ᴇsᴛᴀᴅᴏ: \`ᴏᴘᴛɪᴍɪᴢᴀᴅᴏ\``,
-        '',
-        `*ɴᴏᴠᴇᴅᴀᴅᴇs ʀᴇᴄɪᴇɴᴛᴇs:*`,
-        `• ɴᴜᴇᴠᴏ sɪsᴛᴇᴍᴀ ᴅᴇ ʙᴀsᴇ ᴅᴇ ᴅᴀᴛᴏs (ʟᴏᴡᴅʙ v3).`,
-        `• sɪʟᴇɴᴄɪᴀᴅᴏ ᴅᴇ ᴇʀʀᴏʀᴇs 'ʙᴀᴅ ᴍᴀᴄ' ᴇɴ ᴄᴏɴsᴏʟᴀ.`,
-        `• ᴍᴇᴊᴏʀᴀ ᴇɴ ʟᴀ ʟᴀᴛᴇɴᴄɪᴀ ᴅᴇ ʀᴇsᴘᴜᴇsᴛᴀ.`,
-        `• ɴᴜᴇᴠᴀ ᴇsᴛᴇᴛɪᴄᴀ ᴍᴀsʜᴀ sʏsᴛᴇᴍ ʀᴇғɪɴᴇᴅ.`
-    ]
+const execute = promisify(exec)
 
-    const txt = updates.map(l => l.startsWith('*') || l === '' ? l : `⟨✦⟩ ${l}`).join('\n')
+let handler = async (m, { conn, isOwner }) => {
+    // Seguridad: Solo tú puedes actualizar el bot
+    if (!isOwner) return
 
     try {
-        // Usamos el icono global, pero forzamos un formato que lo haga lucir mejor
-        const thumb = global.icono // Tu URL de imagen principal
-        
-        // Configuramos el contextInfo para que el "icono chiquito" se vea elegante
-        const ctx = {
-            externalAdReply: {
-                title: 'ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ - ɴᴇᴡ ᴜᴘᴅᴀᴛᴇ 🎀',
-                body: 'ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ',
-                mediaType: 1,
-                previewType: 0,
-                renderLargerThumbnail: true, // ESTO HACE QUE EL ICONO SE VEA MÁS GRANDE
-                thumbnailUrl: thumb,
-                sourceUrl: global.rcanal || 'https://github.com/Zoredevteam-ctrl'
-            }
+        await m.reply('⟨✦⟩ `Eᴊᴇᴄᴜᴛᴀɴᴅᴏ ᴀᴄᴛᴜᴀʟɪᴢᴀᴄɪᴏɴ...` ⏳')
+
+        // Comando para traer los cambios de GitHub
+        const { stdout, stderr } = await execute('git pull')
+
+        if (stdout.includes('Already up to date')) {
+            return await m.reply('⟨✦⟩ `ᴍᴀsʜᴀ sʏsᴛᴇᴍ` ya está en la versión más reciente. ✅')
         }
 
-        await conn.sendMessage(m.chat, { 
-            text: txt, 
-            contextInfo: ctx 
-        }, { quoted: m })
+        if (stdout.includes('Updating')) {
+            const updates = [
+                `*ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ ᴜᴘᴅᴀᴛᴇᴅ* 🎀`,
+                `ᴠᴇʀsɪᴏɴ: \`v${global.botVersion || '1.0.1'}\``,
+                '',
+                `*ʟᴏɢ ᴅᴇ ᴄᴀᴍʙɪᴏs:*`,
+                `\`\`\`${stdout}\`\`\``,
+                '',
+                `> Rᴇɪɴɪᴄɪᴀɴᴅᴏ sɪsᴛᴇᴍᴀ ᴘᴀʀᴀ ᴀᴘʟɪᴄᴀʀ ᴄᴀᴍʙɪᴏs...`
+            ]
+
+            const txt = updates.join('\n')
+            const thumb = global.icono
+
+            const ctx = {
+                externalAdReply: {
+                    title: 'ᴍᴀsʜᴀ sʏsᴛᴇᴍ ᴜᴘᴅᴀᴛᴇ 🪄',
+                    body: 'Z0RT SYSTEMS | Actualización Exitosa',
+                    mediaType: 1,
+                    renderLargerThumbnail: true,
+                    thumbnailUrl: thumb,
+                    sourceUrl: global.rcanal
+                }
+            }
+
+            await conn.sendMessage(m.chat, { text: txt, contextInfo: ctx }, { quoted: m })
+            
+            // Reinicio automático para cargar lo nuevo (Solo si usas pm2 o un monitor)
+            process.exit(0) 
+        }
 
     } catch (e) {
-        await m.reply(txt)
+        console.error(e)
+        await m.reply(`⟨✦⟩ *ERROR:* No se pudo actualizar.\n\n\`\`\`${e.message}\`\`\``)
     }
 }
 
 handler.help = ['update']
 handler.tags = ['main']
-handler.command = ['update', 'actualizacion', 'novedades'] 
+handler.command = ['update', 'actualizacion', 'gitpull'] 
+handler.rowner = true // Solo para el dueño real
 
 export default handler
