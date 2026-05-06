@@ -37,7 +37,7 @@ ${greeting}, *${name || m.pushName}* 🎀
 ⟨✦⟩ ᴀᴄᴛɪᴠᴏ : \`${muptime}\`
 ⟨✦⟩ ᴍᴏᴅᴏ : \`${global.opts?.self ? 'Privado' : 'Público'}\`
 
-> Vincula un *Socket* con tu número utilizando *${usedPrefix}qr* o *${usedPrefix}code*.
+> Vincula un *usuario* con tu número utilizando *${usedPrefix}qr* o *${usedPrefix}code para ser sub-bot de María kujou*.
 
 ‧꒷︶꒷꒥꒷‧₊˚꒷︶꒷꒥꒷︶꒷˚₊‧꒷꒥꒷︶꒷‧
 
