@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://imgur.com/a/6vczIKU" alt="Masha Kujou" width="500"/>
+  <img src="https://causas-files.vercel.app/fl/wms8.webp" alt="Masha Kujou" width="500"/>
 
   <h1>🎀 ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ ᴍᴅ 🎀</h1>
   <p><i>The Most Elegant & Powerful WhatsApp Bot Experience</i></p>
