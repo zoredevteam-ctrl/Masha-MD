@@ -60,7 +60,7 @@ ${greeting}, *${name || m.pushName}* ♡
 > Usa \`${usedPrefix}menu\` para ver todo el menú general.
 > Usa \`${usedPrefix}menu economy\` para abrir una categoría.
 
-> Powered by Zort Systems ♡
+> Powered by ˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ ♡
 `.trim()
 
     await conn.sendMessage(m.chat, {
