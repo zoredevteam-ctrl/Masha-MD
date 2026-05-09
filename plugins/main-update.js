@@ -8,49 +8,47 @@ let handler = async (m, { conn, isOwner }) => {
     if (!isOwner) return
 
     try {
-        await m.reply('⟨✦⟩ `Eᴊᴇᴄᴜᴛᴀɴᴅᴏ ᴀᴄᴛᴜᴀʟɪᴢᴀᴄɪᴏɴ...` ⏳')
+        await m.reply('Dame un momento, estoy sincronizando los archivos de GitHub... no me presiones. ⏳')
 
         // Comando para traer los cambios de GitHub
         const { stdout, stderr } = await execute('git pull')
 
         if (stdout.includes('Already up to date')) {
-            return await m.reply('⟨✦⟩ `ᴍᴀsʜᴀ sʏsᴛᴇᴍ` ya está en la versión más reciente. ✅')
+            return await m.reply('Ya estoy en la versión más reciente. ¿Crees que me quedo atrás? 🎀')
         }
 
         if (stdout.includes('Updating')) {
             const updates = [
-                `*ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ ᴜᴘᴅᴀᴛᴇᴅ* 🎀`,
-                `ᴠᴇʀsɪᴏɴ: \`v${global.botVersion || '1.0.1'}\``,
-                '',
-                `*ʟᴏɢ ᴅᴇ ᴄᴀᴍʙɪᴏs:*`,
-                `\`\`\`${stdout}\`\`\``,
-                '',
-                `> Rᴇɪɴɪᴄɪᴀɴᴅᴏ sɪsᴛᴇᴍᴀ ᴘᴀʀᴀ ᴀᴘʟɪᴄᴀʀ ᴄᴀᴍʙɪᴏs...`
+                `Ya descargué los nuevos archivos. Los cambios en los comandos ya están listos para usarse.`,
+                ``,
+                `*Cambios detectados:*`,
+                `\`\`\`${stdout.trim()}\`\`\``
             ]
 
             const txt = updates.join('\n')
-            const thumb = global.icono
 
             const ctx = {
                 externalAdReply: {
-                    title: 'ᴍᴀsʜᴀ sʏsᴛᴇᴍ ᴜᴘᴅᴀᴛᴇ 🪄',
-                    body: 'Z0RT SYSTEMS | Actualización Exitosa',
+                    title: 'ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ ⏤ ᴜᴘᴅᴀᴛᴇ',
+                    body: 'Z0RT SYSTEMS',
                     mediaType: 1,
                     renderLargerThumbnail: true,
-                    thumbnailUrl: thumb,
-                    sourceUrl: global.rcanal
+                    thumbnailUrl: global.icono,
+                    sourceUrl: global.rcanal,
+                    newsletterJid: global.newsletterJid,
+                    newsletterName: global.newsletterName
                 }
             }
 
             await conn.sendMessage(m.chat, { text: txt, contextInfo: ctx }, { quoted: m })
             
-            // Reinicio automático para cargar lo nuevo (Solo si usas pm2 o un monitor)
-            process.exit(0) 
+            // ❌ Eliminé process.exit(0) aquí. 
+            // Ahora el bot hará git pull y seguirá funcionando sin apagarse.
         }
 
     } catch (e) {
         console.error(e)
-        await m.reply(`⟨✦⟩ *ERROR:* No se pudo actualizar.\n\n\`\`\`${e.message}\`\`\``)
+        await m.reply(`Algo salió mal con GitHub. Revisa la consola, yo no puedo arreglar tu código roto.\n\n\`\`\`${e.message}\`\`\``)
     }
 }
 
