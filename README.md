@@ -3,7 +3,7 @@
   <img src="https://iili.io/qpPn1K7.gif" alt="Masha-MD" width="200">
 </p>
 
-<h1 align="center">❄️ ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ ᴍᴅ ❄️</h1>
+<h1 align="center"> ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ ᴍᴅ </h1>
 
 <p align="center">
   <a href="https://github.com/Zoredevteam-ctrl/Masha-MD/stargazers"><img src="https://img.shields.io/github/stars/Zoredevteam-ctrl/Masha-MD?color=purple&style=for-the-badge&logo=github" alt="Stars"></a>
