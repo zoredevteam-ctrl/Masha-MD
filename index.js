@@ -18,7 +18,7 @@ import {
     jidDecode,
     DisconnectReason
 } from '@whiskeysockets/baileys'
-import { handler } from './handler.js'
+import { handler, loadEvents } from './handler.js'
 import { database } from './lib/database.js'
 
 const __dirname  = path.dirname(fileURLToPath(import.meta.url))
@@ -27,16 +27,15 @@ const pluginsDir = path.join(__dirname, 'plugins')
 global.conns = []
 
 // ── Paleta cromática de Masha ─────────────────────────────────────────────────
-// Rosa nevado / violeta ruso / lavanda / blanco perla
 const cW   = chalk.white
 const cG   = chalk.gray
-const cP1  = chalk.hex('#e2b4f7')   // lavanda claro  — pelo plateado
-const cP2  = chalk.hex('#c084fc')   // violeta medio  — ojos celestes de Masha
-const cP3  = chalk.hex('#a855f7')   // purpura        — acento principal
-const cP4  = chalk.hex('#7c3aed')   // violeta oscuro — bordes
-const cR   = chalk.hex('#f0abfc')   // rosa violeta   — nombre
-const cI   = chalk.hex('#d8b4fe')   // lila           — subtítulos
-const cDim = chalk.hex('#581c87')   // borde oscuro
+const cP1  = chalk.hex('#e2b4f7')
+const cP2  = chalk.hex('#c084fc')
+const cP3  = chalk.hex('#a855f7')
+const cP4  = chalk.hex('#7c3aed')
+const cR   = chalk.hex('#f0abfc')
+const cI   = chalk.hex('#d8b4fe')
+const cDim = chalk.hex('#581c87')
 
 // ── Logger ────────────────────────────────────────────────────────────────────
 const log = {
@@ -47,13 +46,7 @@ const log = {
     plugin:  txt => console.log(cP2('  ✦ ') + cW(txt)),
 }
 
-// ── Banner — estilo María Mijáilovna Kujou ────────────────────────────────────
-//
-//  Concepto: mezcla del alfabeto cirílico (ella es rusa) con
-//  kanji/latín elegante (ella es mitad japonesa).
-//  Línea decorativa tipo vitral/encaje ruso.
-//  Sin ASCII art de letras copiado — 100% original.
-//
+// ── Banner ────────────────────────────────────────────────────────────────────
 const makeBanner = () => {
     const v   = global.botVersion || '1.0.0'
     const ow  = global.ownerName  || 'Owner'
@@ -62,76 +55,59 @@ const makeBanner = () => {
         weekday: 'long', day: 'numeric', month: 'long'
     })
 
-    // Líneas de borde
-    const W   = 59  // ancho interior
+    const W   = 59
     const top = cDim('  ╔') + cP4('═'.repeat(W)) + cDim('╗')
     const btm = cDim('  ╚') + cP4('═'.repeat(W)) + cDim('╝')
     const sep = cDim('  ╠') + cP3('─'.repeat(W)) + cDim('╣')
     const emp = () => cDim('  ║') + ' '.repeat(W) + cDim('║')
 
-    // Función para centrar texto (sin contar escapes ANSI)
-    const center = (raw, colorFn = s => s) => {
+    const center = (raw, cls) => {
         const visible = raw.replace(/\x1b\[[0-9;]*m/g, '')
         const pad     = Math.max(0, Math.floor((W - visible.length) / 2))
         const rpad    = Math.max(0, W - visible.length - pad)
-        return cDim('  ║') + ' '.repeat(pad) + colorFn(raw) + ' '.repeat(rpad) + cDim('║')
+        return cDim('  ║') + ' '.repeat(pad) + cls(raw) + ' '.repeat(rpad) + cDim('║')
     }
 
-    // Función para línea izquierda con sangría
-    const left = (raw) => {
-        const visible = raw.replace(/\x1b\[[0-9;]*m/g, '')
-        const rpad    = Math.max(0, W - visible.length)
-        return cDim('  ║') + raw + ' '.repeat(rpad) + cDim('║')
+    const leftRaw = (html, visible) => {
+        const rpad = Math.max(0, W - visible.length)
+        return cDim('  ║') + html + ' '.repeat(rpad) + cDim('║')
     }
 
-    // ── Contenido del banner ──────────────────────────────────────────────────
-
-    // Nombre cirílico — el personaje habla ruso
     const cyrName  = 'М  А  Ш  А     К  У  Д  Ж  О  У'
-    // Kanji decorativo (hermana, elegante, luna — rasgos de Masha)
     const kanjiRow = '姉  ·  優雅  ·  月  ·  雪'
-    // Nombre completo en latín
     const fullName = 'María  Mijáilovna  Kujou'
-    // Tagline
     const tagline  = 'Roshidere  ·  WhatsApp  MD  Bot'
-    // Cita de Masha (en ruso transliterado)
     const quote    = '"Da, solnyshko... aquí estoy para ti."'
-    // Encaje decorativo tipo bordado ruso
     const lace     = '✦ ─────── ❧ ─────── ✦ ─────── ❧ ─────── ✦'
+
+    const verV  = '   version  ' + v + '   ·   node  ' + process.version
+    const verH  = cG('   version  ') + cP2(v) + cG('   ·   node  ') + cP2(process.version)
+    const owV   = '   owner    ' + ow
+    const owH   = cG('   owner    ') + cP1(ow)
+    const pfxV  = '   prefix   ' + pfx + '   ·   ' + now
+    const pfxH  = cG('   prefix   ') + cP2(pfx) + cG('   ·   ') + cG(now)
 
     return [
         '',
         top,
         emp(),
-
-        // Nombre cirílico — grande, centrado, rosa
-        center(cyrName, cR.bold),
+        center(cyrName,  cR.bold),
         center(kanjiRow, cDim),
-
         emp(),
-        center(lace, cP4),
+        center(lace,     cP4),
         emp(),
-
-        // Nombre completo
         center(fullName, cP1.bold),
         center(tagline,  cI),
-
         emp(),
         sep,
         emp(),
-
-        // Info técnica — alineada a la izquierda con sangría
-        left(cG('   version  ') + cP2(v)   + cG('   ·   node ') + cP2(process.version)),
-        left(cG('   owner    ') + cP1(ow)),
-        left(cG('   prefix   ') + cP2(pfx) + cG('   ·   ') + cG(now)),
-
+        leftRaw(verH, verV),
+        leftRaw(owH,  owV),
+        leftRaw(pfxH, pfxV),
         emp(),
         sep,
         emp(),
-
-        // Cita de Masha
         center(quote, cI.italic),
-
         emp(),
         btm,
         '',
@@ -203,7 +179,7 @@ function watchPlugins() {
 function cleanSession(sessionDir) {
     try {
         if (!fs.existsSync(sessionDir)) return
-        const BAD = ['pre-key-', 'session-', 'sender-key-', 'app-state-sync-']
+        const BAD   = ['pre-key-', 'session-', 'sender-key-', 'app-state-sync-']
         const files = fs.readdirSync(sessionDir)
         let n = 0
         for (const f of files) {
@@ -222,9 +198,9 @@ if (!fs.existsSync(global.sessionName)) fs.mkdirSync(global.sessionName, { recur
 
 const methodCodeQR = process.argv.includes('--qr')
 const methodCode   = process.argv.includes('--code')
-let opcion      = ''
-let phoneNumber = ''
-let reconnectCount    = 0
+let opcion         = ''
+let phoneNumber    = ''
+let reconnectCount = 0
 const MAX_RECONNECT_DELAY = 30_000
 
 async function startBot() {
@@ -308,6 +284,12 @@ async function startBot() {
             log.success(`Conectada: ${name}  (+${num})  ✓`)
             console.log(cP3('  ✦ ') + cI(`Plugins activos: ${plugins.size}`))
             console.log(cP4('  ✦ ') + cG('Escuchando mensajes...\n'))
+
+            // ── CLAVE: registrar eventos aquí, no esperar al primer mensaje ──
+            // Sin esto, group-participants.update nunca se escucha
+            // porque loadEvents() en handler.js solo corre al recibir mensajes.
+            await loadEvents(conn)
+            log.info('Eventos registrados (welcome, goodbye, etc.)')
         }
 
         if (connection === 'close') {
@@ -315,7 +297,7 @@ async function startBot() {
             const reason     = lastDisconnect?.error?.message || 'desconocida'
 
             if (statusCode === DisconnectReason.loggedOut) {
-                log.error(`Sesión cerrada (logout). Borra ${global.sessionName} y reinicia.`)
+                log.error(`Sesion cerrada (logout). Borra ${global.sessionName} y reinicia.`)
                 return
             }
 
