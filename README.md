@@ -16,7 +16,7 @@
 
 > [!IMPORTANT]
 > **Este sistema evoluciona constantemente.** Mantente al tanto de las actualizaciones críticas y nuevas funciones uniéndote a nuestro canal oficial.
-> ### 📢 [¡Únete al Canal de Masha!](https://stellarwa.xyz/channel/yuki)
+> ### 📢 [¡Únete al Canal de Masha!](https:)
 
 ---
 
