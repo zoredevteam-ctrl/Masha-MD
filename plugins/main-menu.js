@@ -1,5 +1,5 @@
 // plugins/menu.js — Masha Kujou MD
-// ✦ Menú completo en texto plano — sin interactive messages (seguro para grupos)
+// ✦ Menú completo — banner grande via thumbnailUrl, sin descargar imagen
 
 import fs from 'fs'
 import path from 'path'
@@ -24,7 +24,23 @@ function getGreeting() {
 }
 
 // ─────────────────────────────────────────────
-//  Menú por categoría (para #menu <cat>)
+//  Context — banner grande, sin newsletter chico
+// ─────────────────────────────────────────────
+
+const getCtx = (usedPrefix) => ({
+    externalAdReply: {
+        title:                 `✦ Masha Kujou MD`,
+        body:                  `Usa ${usedPrefix}menu <categoría> para más info`,
+        mediaType:             1,
+        renderLargerThumbnail: true,
+        thumbnailUrl:          global.banner,
+        sourceUrl:             global.rcanal   || '',
+        mediaUrl:              global.rcanal   || '',
+    }
+})
+
+// ─────────────────────────────────────────────
+//  Menú por categoría (#menu <cat>)
 // ─────────────────────────────────────────────
 
 export const menuObject = {
@@ -33,6 +49,8 @@ economy: `
 ╭୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╮
         *💰 ECONOMY*
 ╰୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╯
+
+୨୧ *Gana y administra tus coins*
 
 ୨୧ \`$prefixwork\`
 > Trabaja para ganar monedas.
@@ -45,6 +63,9 @@ economy: `
 
 ୨୧ \`$prefixminar\`
 > Mina recursos para ganar coins.
+
+୨୧ \`$prefixcrime\`
+> Comete un crimen por coins (riesgo).
 
 ୨୧ \`$prefixdeposit <cantidad>\`
 > Deposita coins al banco.
@@ -63,12 +84,19 @@ economy: `
 
 ୨୧ \`$prefixshop\`
 > Ver la tienda del bot.
+
+୨୧ \`$prefixbuy <item>\`
+> Comprar un ítem de la tienda.
+
+> Powered by ˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ ♡
 `.trim(),
 
 downloads: `
 ╭୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╮
         *📥 DOWNLOADS*
 ╰୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╯
+
+୨୧ *Descarga música, videos y más*
 
 ୨୧ \`$prefixplay <canción>\`
 > Descarga música desde YouTube.
@@ -80,19 +108,26 @@ downloads: `
 > Descarga canciones de Spotify.
 
 ୨୧ \`$prefixtiktok <url>\`
-> Descarga videos de TikTok sin marca.
+> Video de TikTok sin marca de agua.
 
 ୨୧ \`$prefixinstagram <url>\`
-> Descarga reels, historias o fotos.
+> Reels, historias o fotos de Instagram.
 
 ୨୧ \`$prefixfacebook <url>\`
-> Descarga videos de Facebook.
+> Videos de Facebook.
+
+୨୧ \`$prefixtwitter <url>\`
+> Videos de Twitter / X.
+
+> Powered by ˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ ♡
 `.trim(),
 
 anime: `
 ╭୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╮
         *🌸 ANIME*
 ╰୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╯
+
+୨୧ *Reacciones, imágenes y waifus*
 
 ୨୧ \`$prefixwaifu\`
 > Imagen waifu aleatoria.
@@ -104,7 +139,7 @@ anime: `
 > Fotos matching para parejas.
 
 ୨୧ \`$prefixhug @usuario\`
-> Abraza a alguien.
+> Abraza a alguien con amor.
 
 ୨୧ \`$prefixkiss @usuario\`
 > Envía un beso anime.
@@ -117,51 +152,68 @@ anime: `
 
 ୨୧ \`$prefixcry\`
 > Reacción de llanto.
+
+୨୧ \`$prefixdance\`
+> Reacción de baile.
+
+୨୧ \`$prefixwave @usuario\`
+> Saluda con la mano.
+
+> Powered by ˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ ♡
 `.trim(),
 
 group: `
 ╭୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╮
-        *👥 GROUP*
+        *👥 GRUPOS*
 ╰୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╯
 
+୨୧ *Administración del grupo*
+
 ୨୧ \`$prefixadd <número>\`
-> Agrega un usuario al grupo.
+> Agregar un usuario al grupo.
 
 ୨୧ \`$prefixkick @usuario\`
-> Expulsa un usuario.
+> Expulsar un usuario.
 
 ୨୧ \`$prefixpromote @usuario\`
-> Da permisos de admin.
+> Dar permisos de administrador.
 
 ୨୧ \`$prefixdemote @usuario\`
-> Quita permisos de admin.
+> Quitar permisos de administrador.
 
 ୨୧ \`$prefixtagall\`
-> Menciona a todos los miembros.
+> Mencionar a todos los miembros.
 
 ୨୧ \`$prefixgroup open\` / \`$prefixgroup close\`
-> Abre o cierra el grupo.
+> Abrir o cerrar el grupo.
 
 ୨୧ \`$prefixlink\`
 > Enlace de invitación del grupo.
 
+୨୧ \`$prefixrevokelink\`
+> Revocar y generar nuevo enlace.
+
 ୨୧ \`$prefixsetwelcome <texto>\`
-> Mensaje de bienvenida personalizado.
+> Personalizar mensaje de bienvenida.
 
 ୨୧ \`$prefixsetgoodbye <texto>\`
-> Mensaje de despedida personalizado.
+> Personalizar mensaje de despedida.
 
 ୨୧ \`$prefixtestwelcome\`
 > Probar el mensaje de bienvenida.
 
 ୨୧ \`$prefixwelcomeinfo\`
 > Ver configuración actual del grupo.
+
+> Powered by ˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ ♡
 `.trim(),
 
 profile: `
 ╭୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╮
-        *👤 PROFILE*
+        *👤 PERFIL*
 ╰୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╯
+
+୨୧ *Tu información y estadísticas*
 
 ୨୧ \`$prefixperfil\`
 > Muestra tu perfil completo con foto.
@@ -174,12 +226,16 @@ profile: `
 
 ୨୧ \`$prefixreg nombre.edad\`
 > Registrarse en el bot.
+
+> Powered by ˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ ♡
 `.trim(),
 
 stickers: `
 ╭୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╮
         *🎨 STICKERS*
 ╰୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╯
+
+୨୧ *Crea y convierte stickers*
 
 ୨୧ \`$prefixsticker\`
 > Convierte imagen o video en sticker.
@@ -188,16 +244,20 @@ stickers: `
 > Convierte sticker en imagen.
 
 ୨୧ \`$prefixattp <texto>\`
-> Crea sticker con texto animado.
+> Crea sticker animado con texto.
 
 ୨୧ \`$prefixemojimix\`
 > Combina dos emojis en un sticker.
+
+> Powered by ˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ ♡
 `.trim(),
 
 utils: `
 ╭୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╮
         *🔧 UTILS*
 ╰୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╯
+
+୨୧ *Herramientas útiles*
 
 ୨୧ \`$prefixping\`
 > Velocidad de respuesta del bot.
@@ -221,13 +281,17 @@ utils: `
 > Frase motivacional aleatoria.
 
 ୨୧ \`$prefixpokedex <nombre>\`
-> Información de un Pokémon.
+> Información detallada de un Pokémon.
+
+> Powered by ˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ ♡
 `.trim(),
 
 sockets: `
 ╭୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╮
         *🤖 SUB-BOTS*
 ╰୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╯
+
+୨୧ *Conecta y gestiona sub-bots*
 
 ୨୧ \`$prefixjadibot\`
 > Conectar sub-bot con código QR.
@@ -251,13 +315,17 @@ sockets: `
 > Cambiar el nombre del sub-bot.
 
 ୨୧ \`$prefixsetpp\` *(premium)*
-> Cambiar la foto del sub-bot.
+> Cambiar la foto de perfil del sub-bot.
+
+> Powered by ˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ ♡
 `.trim(),
 
 gacha: `
 ╭୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╮
         *🎰 GACHA*
 ╰୨୧─͜─͜─͜─͜─͜─͜୨୧─͜─͜─͜─͜─͜─͜╯
+
+୨୧ *Colección, sorteos y premios*
 
 ୨୧ \`$prefixgacha\`
 > Obtén personajes o recompensas aleatorias.
@@ -267,6 +335,8 @@ gacha: `
 
 ୨୧ \`$prefixclaim\`
 > Reclama tu premio disponible.
+
+> Powered by ˚₊· ͟͟͞͞  ɪ ᴀᴍ  Aᴅʀɪᴇɴ ♡
 `.trim(),
 
 }
@@ -300,94 +370,78 @@ ${greeting}, *${nombre}* ♡
 > ⟡ Modo: \`${global.botOff ? 'Privado' : 'Público'}\`
 
 ╭───────────────────────╮
-
 💰 *ECONOMY*
 > \`${usedPrefix}work\` — Trabajar por coins
 > \`${usedPrefix}bal\` — Ver balance
 > \`${usedPrefix}daily\` — Recompensa diaria
 > \`${usedPrefix}minar\` — Minar recursos
-> \`${usedPrefix}deposit\` — Depositar al banco
-> \`${usedPrefix}withdraw\` — Retirar del banco
-> \`${usedPrefix}casino\` — Apostar coins
-> \`${usedPrefix}rob @u\` — Robar coins
-> \`${usedPrefix}transfer @u cant\` — Enviar coins
-> \`${usedPrefix}shop\` — Tienda
+> \`${usedPrefix}crime\` — Crimen por coins
+> \`${usedPrefix}deposit\` / \`${usedPrefix}withdraw\` — Banco
+> \`${usedPrefix}casino\` — Apostar
+> \`${usedPrefix}rob @u\` — Robar
+> \`${usedPrefix}transfer @u cant\` — Enviar
+> \`${usedPrefix}shop\` / \`${usedPrefix}buy\` — Tienda
 
 ╭───────────────────────╮
-
 📥 *DOWNLOADS*
-> \`${usedPrefix}play <nombre>\` — Música YT
-> \`${usedPrefix}playvid <nombre>\` — Video YT
-> \`${usedPrefix}spotify <nombre>\` — Spotify
-> \`${usedPrefix}tiktok <url>\` — TikTok
-> \`${usedPrefix}instagram <url>\` — Instagram
-> \`${usedPrefix}facebook <url>\` — Facebook
+> \`${usedPrefix}play\` — Música YouTube
+> \`${usedPrefix}playvid\` — Video YouTube
+> \`${usedPrefix}spotify\` — Spotify
+> \`${usedPrefix}tiktok\` — TikTok
+> \`${usedPrefix}instagram\` — Instagram
+> \`${usedPrefix}facebook\` — Facebook
+> \`${usedPrefix}twitter\` — Twitter / X
 
 ╭───────────────────────╮
-
 🌸 *ANIME*
 > \`${usedPrefix}waifu\` — Imagen waifu
 > \`${usedPrefix}neko\` — Imagen neko
 > \`${usedPrefix}ppcouple\` — Fotos pareja
-> \`${usedPrefix}hug @u\` — Abrazar
-> \`${usedPrefix}kiss @u\` — Beso
-> \`${usedPrefix}pat @u\` — Caricia
-> \`${usedPrefix}slap @u\` — Golpear
-> \`${usedPrefix}cry\` — Llorar
+> \`${usedPrefix}hug\` / \`${usedPrefix}kiss\` / \`${usedPrefix}pat\` — Reacciones
+> \`${usedPrefix}slap\` / \`${usedPrefix}cry\` / \`${usedPrefix}dance\` — Más
 
 ╭───────────────────────╮
-
 👥 *GRUPOS*
-> \`${usedPrefix}add <num>\` — Agregar
-> \`${usedPrefix}kick @u\` — Expulsar
-> \`${usedPrefix}promote @u\` — Dar admin
-> \`${usedPrefix}demote @u\` — Quitar admin
+> \`${usedPrefix}add\` / \`${usedPrefix}kick\` — Agregar / Expulsar
+> \`${usedPrefix}promote\` / \`${usedPrefix}demote\` — Admin
 > \`${usedPrefix}tagall\` — Mencionar todos
-> \`${usedPrefix}group open/close\` — Abrir/cerrar
-> \`${usedPrefix}link\` — Enlace del grupo
-> \`${usedPrefix}setwelcome\` — Bienvenida
-> \`${usedPrefix}setgoodbye\` — Despedida
+> \`${usedPrefix}group open/close\` — Abrir / cerrar
+> \`${usedPrefix}link\` / \`${usedPrefix}revokelink\` — Enlace
+> \`${usedPrefix}setwelcome\` / \`${usedPrefix}setgoodbye\` — Mensajes
 
 ╭───────────────────────╮
-
 👤 *PERFIL*
-> \`${usedPrefix}perfil\` — Ver tu perfil
+> \`${usedPrefix}perfil\` — Ver tu perfil con foto
 > \`${usedPrefix}perfil @u\` — Perfil de otro
 > \`${usedPrefix}setbirthday dd/mm\` — Cumpleaños
 > \`${usedPrefix}reg nombre.edad\` — Registrarse
 
 ╭───────────────────────╮
-
 🎨 *STICKERS*
 > \`${usedPrefix}sticker\` — Imagen a sticker
 > \`${usedPrefix}toimg\` — Sticker a imagen
-> \`${usedPrefix}attp <texto>\` — Sticker texto
+> \`${usedPrefix}attp\` — Sticker con texto
 > \`${usedPrefix}emojimix\` — Combinar emojis
 
 ╭───────────────────────╮
-
 🔧 *UTILS*
 > \`${usedPrefix}ping\` — Velocidad
-> \`${usedPrefix}clima <ciudad>\` — Clima
-> \`${usedPrefix}calc <expr>\` — Calculadora
-> \`${usedPrefix}qr <texto>\` — Código QR
-> \`${usedPrefix}traducir <texto>\` — Traducir
-> \`${usedPrefix}chiste\` — Chiste
-> \`${usedPrefix}frase\` — Frase
-> \`${usedPrefix}pokedex <nombre>\` — Pokédex
+> \`${usedPrefix}clima\` — Clima
+> \`${usedPrefix}calc\` — Calculadora
+> \`${usedPrefix}qr\` — Código QR
+> \`${usedPrefix}traducir\` — Traducir
+> \`${usedPrefix}chiste\` / \`${usedPrefix}frase\` — Entretenimiento
+> \`${usedPrefix}pokedex\` — Pokédex
 
 ╭───────────────────────╮
-
 🤖 *SUB-BOTS*
 > \`${usedPrefix}jadibot\` — Conectar (QR)
 > \`${usedPrefix}code\` — Conectar (código)
 > \`${usedPrefix}bots\` — Ver activos
 > \`${usedPrefix}deletesub\` — Eliminar sesión
-> \`${usedPrefix}pausesub\` — Pausar
-> \`${usedPrefix}token\` — Ver token
+> \`${usedPrefix}setname\` / \`${usedPrefix}setpp\` — Premium
 
 ╭───────────────────────╮
-
 🎰 *GACHA*
 > \`${usedPrefix}gacha\` — Tirar personaje
 > \`${usedPrefix}roll\` — Tirada aleatoria
@@ -410,45 +464,25 @@ const handler = async (m, { conn, usedPrefix, text }) => {
 
     const user     = database.getUser(m.sender)
     const greeting = getGreeting()
+    const ctx      = getCtx(usedPrefix)
 
-    // #menu <categoría> → mostrar solo esa sección
+    // #menu <categoría>
     if (text && text.trim()) {
         const key = text.trim().toLowerCase()
         if (menuObject[key]) {
-            const categoryText = menuObject[key].replaceAll('$prefix', usedPrefix)
-            const thumb = await global.getBannerThumb?.() || null
-            const ctx   = global.getNewsletterCtx?.(thumb) || {}
-            const catTxt = `୨୧ *Masha Kujou — ${key.toUpperCase()}* ୨୧\n\n${categoryText}`
+            const body = `୨୧ *Masha Kujou — ${key.toUpperCase()}* ୨୧\n\n${menuObject[key].replaceAll('$prefix', usedPrefix)}`
             try {
-                if (thumb) {
-                    return await conn.sendMessage(m.chat, {
-                        image:       thumb,
-                        caption:     catTxt,
-                        contextInfo: ctx
-                    }, { quoted: m })
-                }
-                return await conn.sendMessage(m.chat, { text: catTxt, contextInfo: ctx }, { quoted: m })
+                return await conn.sendMessage(m.chat, { text: body, contextInfo: ctx }, { quoted: m })
             } catch {
-                return m.reply(catTxt)
+                return m.reply(body)
             }
         }
     }
 
-    // #menu → menú completo
+    // #menu completo
     const fullMenu = buildFullMenu(user, pkg, usedPrefix, greeting)
-    const thumb    = await global.getBannerThumb?.() || null
-    const ctx      = global.getNewsletterCtx?.(thumb) || {}
-
     try {
-        if (thumb) {
-            await conn.sendMessage(m.chat, {
-                image:       thumb,
-                caption:     fullMenu,
-                contextInfo: ctx
-            }, { quoted: m })
-        } else {
-            await conn.sendMessage(m.chat, { text: fullMenu, contextInfo: ctx }, { quoted: m })
-        }
+        await conn.sendMessage(m.chat, { text: fullMenu, contextInfo: ctx }, { quoted: m })
     } catch {
         await m.reply(fullMenu)
     }
