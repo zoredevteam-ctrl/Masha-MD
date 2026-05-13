@@ -418,13 +418,18 @@ const handler = async (m, { conn, usedPrefix, text }) => {
             const categoryText = menuObject[key].replaceAll('$prefix', usedPrefix)
             const thumb = await global.getBannerThumb?.() || null
             const ctx   = global.getNewsletterCtx?.(thumb) || {}
+            const catTxt = `୨୧ *Masha Kujou — ${key.toUpperCase()}* ୨୧\n\n${categoryText}`
             try {
-                return await conn.sendMessage(m.chat, {
-                    text: `୨୧ *Masha Kujou — ${key.toUpperCase()}* ୨୧\n\n${categoryText}`,
-                    contextInfo: ctx
-                }, { quoted: m })
+                if (thumb) {
+                    return await conn.sendMessage(m.chat, {
+                        image:       thumb,
+                        caption:     catTxt,
+                        contextInfo: ctx
+                    }, { quoted: m })
+                }
+                return await conn.sendMessage(m.chat, { text: catTxt, contextInfo: ctx }, { quoted: m })
             } catch {
-                return m.reply(`୨୧ *Masha Kujou — ${key.toUpperCase()}* ୨୧\n\n${categoryText}`)
+                return m.reply(catTxt)
             }
         }
     }
@@ -435,10 +440,15 @@ const handler = async (m, { conn, usedPrefix, text }) => {
     const ctx      = global.getNewsletterCtx?.(thumb) || {}
 
     try {
-        await conn.sendMessage(m.chat, {
-            text:        fullMenu,
-            contextInfo: ctx
-        }, { quoted: m })
+        if (thumb) {
+            await conn.sendMessage(m.chat, {
+                image:       thumb,
+                caption:     fullMenu,
+                contextInfo: ctx
+            }, { quoted: m })
+        } else {
+            await conn.sendMessage(m.chat, { text: fullMenu, contextInfo: ctx }, { quoted: m })
+        }
     } catch {
         await m.reply(fullMenu)
     }
