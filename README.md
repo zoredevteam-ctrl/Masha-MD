@@ -1,6 +1,6 @@
 
 <p align="center"> 
-  <img src="https://files.catbox.moe/a6brcy.mp4" alt="Masha-MD" width="200">
+  <img src="https://cdn.adoolab.xyz/dl/a27bfb99.txt" alt="Masha-MD" width="200">
 </p>
 
 <h1 align="center"> ᴍᴀsʜᴀ ᴋᴜᴊᴏᴜ ᴍᴅ </h1>
